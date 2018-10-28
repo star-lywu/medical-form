@@ -1,5 +1,6 @@
 //JavaScript代码区域
     //个人信息
+var medicalNumber = -1;
 var personalInformation = new Vue({
     el: '#personalInformation',
     data : {
@@ -21,7 +22,7 @@ var personalInformation = new Vue({
             //get通过params选项
             axios.get('http://127.0.0.1:8080/personal/getPersonalInfo',{
                 params:{
-                    "medicalNumber": "675589012"
+                    "medicalNumber": getUrlKey("medicalNumber")
                 }
             })
             .then((response) => {
@@ -35,10 +36,13 @@ var personalInformation = new Vue({
         }
     },
     mounted: function(){
+        if (medicalNumber == -1){
+            medicalNumber = getUrlKey("medicalNumber")
+        }
         //get通过params选项
         axios.get('http://127.0.0.1:8080/personal/getPersonalInfo',{
             params:{
-                "medicalNumber": "675589012"
+                "medicalNumber": medicalNumber
             }
         })
         .then((response) => {
@@ -51,3 +55,7 @@ var personalInformation = new Vue({
         });
     }
 });
+
+function getUrlKey(name) {
+    return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.href) || [, ""])[1].replace(/\+/g, '%20')) || null
+}

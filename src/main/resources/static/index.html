@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>xxx医院 - 问题清单</title>
+  <link rel="stylesheet" href="./layui/css/layui.css">
+  <link rel="stylesheet" href="./index.css">
+</head>
+
+<body background="./image/2222.png" class="layui-layout-body" style="background-repeat:no-repeat;background-size:100% 100%;background-attachment: fixed;">
+  <div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <h1 style="padding-left: 40%;padding-top: 10px; color: rgb(12, 160, 160)">问题清单</h1>
+      <!-- 头部区域（可配合layui已有的水平导航） -->
+      <ul class="layui-nav layui-layout-left">
+        <!-- <li class="layui-nav-item"><a href="">控制台</a></li>
+      <li class="layui-nav-item"><a href="">商品管理</a></li>
+      <li class="layui-nav-item"><a href="">用户</a></li>
+      <li class="layui-nav-item">
+        <a href="javascript:;">其它系统</a>
+        <dl class="layui-nav-child">
+          <dd><a href="">邮件管理</a></dd>
+          <dd><a href="">消息管理</a></dd>
+          <dd><a href="">授权管理</a></dd>
+        </dl>
+      </li> -->
+      </ul>
+      <ul class="layui-nav layui-layout-right">
+        <!-- <li class="layui-nav-item">
+        <a href="javascript:;">
+          <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+          贤心
+        </a>
+        <dl class="layui-nav-child">
+          <dd><a href="">基本资料</a></dd>
+          <dd><a href="">安全设置</a></dd>
+        </dl>
+      </li>
+      <li class="layui-nav-item"><a href="">退了</a></li> -->
+      </ul>
+    </div>
+    <div class="layui-body">
+      <div style="padding: 10px 15px;">
+        <h3>个人资料</h3>
+      </div>
+      <div class="layui-card-body" id="personalInformation">
+        <table class="layui-table">
+          <colgroup>
+            <col width="150">
+            <col width="200">
+            <col>
+          </colgroup>
+          <div class="layui-row">
+            <div class="layui-col-xs3">
+              <div class="grid-demo">
+                <strong>姓名：</strong>{{person.name}}</div>
+            </div>
+            <div class="layui-col-xs3">
+              <div class="grid-demo">
+                <strong>就诊号：</strong>{{person.medicalNumber}}</div>
+            </div>
+            <div class="layui-col-xs6">
+              <div class="grid-demo">
+                <strong>就诊时间：</strong>{{person.medicalDate}}</div>
+            </div>
+          </div>
+          <hr style="height: 2px;">
+          <div class="layui-row">
+            <div class="layui-col-xs3">
+              <div class="grid-demo">
+                <strong>姓别：</strong>{{person.sex}}</div>
+            </div>
+            <div class="layui-col-xs3">
+              <div class="grid-demo">
+                <strong>年龄：</strong>{{person.age}}</div>
+            </div>
+            <div class="layui-col-xs6">
+              <div class="grid-demo">
+                <strong>民族：</strong>{{person.nation}}</div>
+            </div>
+          </div>
+
+          <div class="layui-row">
+            <div class="layui-col-xs3">
+              <div class="grid-demo">
+                <strong>职业：</strong>{{person.job}}</div>
+            </div>
+            <div class="layui-col-xs3">
+              <div class="grid-demo">
+                <strong>婚姻：</strong>{{person.marriage}}</div>
+            </div>
+            <div class="layui-col-xs6">
+              <div class="grid-demo">
+                <strong>出身地：</strong>{{person.address}}</div>
+            </div>
+          </div>
+        </table>
+      </div>
+      <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+        <ul class="layui-tab-title">
+          <li class="layui-this">
+            <strong>电子病历过敏史</strong>
+          </li>
+          <li>
+            护理过敏史
+          </li>
+          <li>诊断信息</li>
+          <li>检验危机项</li>
+          <li>体征异常项</li>
+        </ul>
+        <div class="layui-tab-content">
+          <div class="layui-tab-item layui-show">
+            内容1
+          </div>
+          <div class="layui-tab-item">内容2</div>
+          <div class="layui-tab-item">内容3</div>
+          <div class="layui-tab-item">内容4</div>
+          <div class="layui-tab-item">内容5</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  </div>
+  <script src="./layui/layui.all.js"></script>
+  <script src="./vue/vue.js"></script>
+  <script src="./http/axios.js"></script>
+  <script src="./http/jquery.js"></script>
+  <script src="./index.js"></script>
+  <!-- <script>
+//JavaScript代码区域
+    //个人信息
+    var personalInformation = new Vue({
+      el: '#personalInformation',
+      data : {
+        person:{
+              // "id": "",
+              // "name": "",
+              // "medicalNumber": "",
+              // "medicalDate": "",
+              // "sex": "",
+              // "age": "",
+              // "nation": "",
+              // "job": "",
+              // "marriage": "",
+              // "address": ""
+            }
+      }
+      ,
+      created: function(){
+      },
+      computed: {
+        person: {
+          get: function () {
+            return this.person;
+          },
+          // setter
+          set: function (newValue) {
+            alert(newValue)
+            this.person = newValue;
+          }
+        },
+        sendGetByObj: function(){
+          var person;
+          //get通过params选项
+          axios.get('http://127.0.0.1:8080/personal/getPersonalInfo',{
+              params:{
+                  "medicalNumber": "675589012"
+              }
+          })
+          .then(function(response) {
+            person = response.data.data;
+            // this.data = person;
+            // this.name = person.name;
+            // this.medicalNumber = person.medicalNumber;
+            // this.medicalDate = person.medicalDate;
+            // this.sex = person.sex;
+            // this.age = person.age;
+            // this.nation = person.nation;
+            // this.job = person.job;
+            // this.marriage = person.marriage;
+            // this.address = person.address;
+            console.log(response.data);
+            // return person;
+            this.person = person;
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+        }
+      },
+      mounted: function(){
+        //get通过params选项
+        axios.get('http://127.0.0.1:8080/personal/getPersonalInfo',{
+                params:{
+                    "medicalNumber": "675589012"
+                }
+        })
+        .then(function(response) {
+          var person = response.data.data;
+          this.person = person;
+          console.log(response.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      }
+    });
+    window.onload = function(){
+      personalInformation.sendGetByObj;
+      alert(personalInformation.person.name)
+    }
+  </script> -->
+</body>
+
+</html>
